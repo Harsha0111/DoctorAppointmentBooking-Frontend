@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -6,6 +6,8 @@ import Col from "react-bootstrap/Col";
 import Lottie from "react-lottie";
 import animationData from "../../asset/animations/ani.json";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const LoginComponent = () => {
   const defaultOptions = {
@@ -16,6 +18,10 @@ const LoginComponent = () => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
+
+  const { loggedInUser, setLoggedInUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
   return (
     <>
       <Container>
@@ -51,11 +57,16 @@ const LoginComponent = () => {
               </div>
 
               <div className="text-center p-3 w-100">
-                <Link to="/">
-                  <button className="btn btn-primary btn-block align-text-center w-100">
-                    Sign In
-                  </button>
-                </Link>
+                <button
+                  className="btn btn-primary btn-block align-text-center w-100"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    navigate("/");
+                    setLoggedInUser({ ...loggedInUser, isLoggedIn: true });
+                  }}
+                >
+                  Sign In
+                </button>
               </div>
               <div className="mb-3 text-center intro">
                 <span className="d-block account">

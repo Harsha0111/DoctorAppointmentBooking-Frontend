@@ -19,8 +19,8 @@ const App = () => {
         <Routes>
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route exact path="/" element={<HomePage />} />
           <Route element={<ProtectedRoutes auth={loggedInUser.isLoggedIn} />}>
-            <Route exact path="/" element={<HomePage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/admin" element={<AdminPage />} />
