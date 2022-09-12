@@ -12,7 +12,7 @@ const SearchComponent = () => {
               className="form-control"
               placeholder="Search Doctor"
             />
-            <button className="btn btn-outline-primary" type="button">
+            <button className="btn btn-primary" type="button">
               Search
             </button>
           </div>

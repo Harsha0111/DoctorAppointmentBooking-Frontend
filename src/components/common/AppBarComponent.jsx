@@ -22,16 +22,19 @@ const AppBarComponent = () => {
             <Nav className="me-auto"></Nav>
             <Nav>
               {loggedInUser.isLoggedIn ? (
-                <div
-                  className="text-white btn btn-outlined-primary"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    setLoggedInUser({ ...loggedInUser, isLoggedIn: false });
-                    navigate("/login");
-                  }}
-                >
-                  Logout
-                </div>
+                <>
+                  <div className="text-white">{loggedInUser.fullName}</div>
+                  <div
+                    className="text-white btn btn-outlined-primary"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setLoggedInUser({ ...loggedInUser, isLoggedIn: false });
+                      navigate("/login");
+                    }}
+                  >
+                    Logout
+                  </div>
+                </>
               ) : (
                 <div
                   className="text-white btn btn-outlined-primary"
