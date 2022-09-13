@@ -72,6 +72,7 @@ const RegisterComponent = () => {
                 <h3>Register</h3>
               </div>
               <Lottie options={defaultOptions} height={270} width={400} />
+              
               <div className="p-3 text-center">
                 <div className="inputbox form-floating  mt-3">
                   <input
@@ -118,7 +119,7 @@ const RegisterComponent = () => {
                       setRegister({ ...register, fullName: name });
                     }}
                   />
-                  <label>Name</label>
+                  <label>Full Name</label>
                 </div>
                 <label className="form-text text-danger">
                   {registerError.fullName}
@@ -310,10 +311,11 @@ const RegisterComponent = () => {
                       register.password === "" ||
                       register.confirmPassword === "" ||
                       register.password === register.confirmPassword ||
+
                       register.email.length < 3 ||
                       register.fullName.length < 3 ||
                       register.userName.length < 3 ||
-                      register.age >= 18 ||
+                      register.age < 18 ||
                       register.height < 3 ||
                       register.weight < 3 ||
                       register.password.length < 3 ||

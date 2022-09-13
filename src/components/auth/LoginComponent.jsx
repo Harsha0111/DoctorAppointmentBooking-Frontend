@@ -32,14 +32,16 @@ const LoginComponent = () => {
         console.log(response);
         let data = response.data;
         if (data.data) {
-          navigate("/");
           setLoggedInUser({
             id: data.data.id,
             userName: data.data.userName,
             fullName: data.data.fullName,
-            role: "patient",
+            role: data.data.role.toLowerCase(),
             isLoggedIn: true,
           });
+          if (data.data.role === "ADMIN") {
+            navigate("/admin");
+          } else navigate("/");
         } else {
           console.log(data.error.message);
         }
@@ -67,7 +69,6 @@ const LoginComponent = () => {
               </div>
               <Lottie options={defaultOptions} height={270} width={400} />
               <div className="p-3 text-center">
-                {/* // add floating */}
                 <div className="inputbox form-floating">
                   <input
                     type="text"
@@ -88,10 +89,8 @@ const LoginComponent = () => {
                       setLogin({ ...login, userName: userName });
                     }}
                   />
-                  {/* add label */}
                   <label>User Name</label>
                 </div>
-                {/* move outside div */}
                 <label className="form-text text-danger">
                   {loginError.userName}
                 </label>
@@ -116,13 +115,12 @@ const LoginComponent = () => {
                       setLogin({ ...login, password: password });
                     }}
                   />
-                  
-                  <label className="form-text text-danger text-start">
-                    {loginError.password}
-                  </label>
+
                   <label>Password</label>
                 </div>
-               
+                <label className="form-text text-danger text-start">
+                  {loginError.password}
+                </label>
               </div>
 
               <div className="text-center p-3 w-100">
