@@ -10,7 +10,7 @@ import api from "../../api/api";
 
 const INITIAL_VALUE = {
   id: 0,
-  doctorName: "",
+  fullName: "",
   userName: "",
   email: "",
   password: "",
@@ -25,6 +25,8 @@ const AdminDoctorComponent = () => {
 
   const [doctor, setDoctor] = useState(INITIAL_VALUE);
   const [doctorError, setDoctorError] = useState(INITIAL_VALUE);
+
+  const { doctorsContext, setDoctorsContext } = useContext(UserContext);
 
   useEffect(() => {
     // console.log(specializationContext);
@@ -41,6 +43,8 @@ const AdminDoctorComponent = () => {
           // console.log(response);
           let data = response.data;
           if (data.data) {
+            setDoctorsContext(response.data.data);
+            setDoctor(INITIAL_VALUE);
             console.log(data.data);
           } else {
             console.log(data.error.message);
@@ -67,29 +71,29 @@ const AdminDoctorComponent = () => {
         <InputGroup className="mt-3">
           <Form.Control
             placeholder="Enter doctor name "
-            value={doctor.doctorName}
+            value={doctor.fullName}
             onChange={(event) => {
               let doc = event.target.value;
               if (doc.length > 2) {
-                setDoctorError({ ...doctorError, doctorName: "" });
+                setDoctorError({ ...doctorError, fullName: "" });
               } else {
                 setDoctorError({
                   ...doctorError,
-                  doctorName: "Enter valid name",
+                  fullName: "Enter valid name",
                 });
               }
-              if (doctor.doctorName.length === 0 && doctor.id !== 0)
+              if (doctor.fullName.length === 0 && doctor.id !== 0)
                 setDoctor(INITIAL_VALUE);
               else
                 setDoctor({
                   ...doctor,
                   id: doctor.id,
                 });
-              setDoctor({ ...doctor, doctorName: doc });
+              setDoctor({ ...doctor, fullName: doc });
             }}
           />
         </InputGroup>
-        <Form.Text className="text-danger">{doctorError.doctorName}</Form.Text>
+        <Form.Text className="text-danger">{doctorError.fullName}</Form.Text>
 
         <InputGroup className="mt-3">
           <Form.Control

@@ -36,6 +36,8 @@ const LoginComponent = () => {
             id: data.data.id,
             userName: data.data.userName,
             fullName: data.data.fullName,
+            email: data.data.email,
+            age: data.data.age,
             role: data.data.role.toLowerCase(),
             isLoggedIn: true,
           });

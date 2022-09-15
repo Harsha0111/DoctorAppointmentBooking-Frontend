@@ -1,4 +1,5 @@
 import React from "react";
+import api from "../../api/api";
 
 const UpcomingScheduleComponent = ({
   isDoctor,
@@ -6,6 +7,7 @@ const UpcomingScheduleComponent = ({
   doctorName,
   specialization,
   date,
+  deleteAPI,
 }) => {
   return (
     <div className="d-inline-flex">
@@ -28,12 +30,15 @@ const UpcomingScheduleComponent = ({
           </svg>
           <p className="fs-5 mb-0 text-center">{doctorName}</p>
           <p className="fs-6 p-0 m-0 text-center">
-            Specialization{" "}
+            {/* Specialization{" "} */}
             <span className="fs-6 fs-semibold">{specialization}</span>
           </p>
           <p className="fs-6 p-0 m-0 text-center">Date: {date}</p>
           {!isDoctor ? (
-            <button className="btn btn-danger btn-sm text-center mt-2 align-self-center px-4">
+            <button
+              className="btn btn-danger btn-sm text-center mt-2 align-self-center px-4"
+              onClick={(e) => deleteAPI(e, id)}
+            >
               Cancel
             </button>
           ) : null}

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../context/UserContext";
 
 const PatientProfileComponent = () => {
   const [patientProfile, setPatientProfile] = useState({
@@ -21,11 +22,26 @@ const PatientProfileComponent = () => {
     password: "",
     confirmPassword: "",
   });
+  
+  const { loggedInUser } = useContext(UserContext);
+
+  useEffect(() => {
+    console.log(patientProfile);
+    setPatientProfile({
+      ...patientProfile,
+      id: loggedInUser.id,
+      userName: loggedInUser.userName,
+      fullName: loggedInUser.fullName,
+      email: loggedInUser.email,
+      age: loggedInUser.age,
+    });
+    console.log(loggedInUser);
+  }, [loggedInUser]);
 
   return (
     <div className="p-3 py-3 ">
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h6 className="text-right">Edit Profile</h6>
+        <h6 className="text-right">Profile</h6>
       </div>
 
       <div className="inputbox row mt-2 ">
@@ -33,6 +49,7 @@ const PatientProfileComponent = () => {
           <div className=" form-floating">
             <input
               type="text"
+              disabled
               className="form-control"
               placeholder="User Name"
               value={patientProfile.userName}
@@ -63,6 +80,7 @@ const PatientProfileComponent = () => {
           <div className="form-floating">
             <input
               type="text"
+              disabled
               className="form-control"
               placeholder="Full Name"
               value={patientProfile.fullName}
@@ -97,6 +115,7 @@ const PatientProfileComponent = () => {
               type="text"
               className="form-control"
               placeholder="Age"
+              disabled
               value={patientProfile.age}
               onChange={(event) => {
                 let age = event.target.value;
@@ -120,7 +139,36 @@ const PatientProfileComponent = () => {
             {patientProfileError.age}
           </label>
         </div>
+        <div className="col-md-6">
+          <div className=" form-floating ">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Email"
+              disabled
+              value={patientProfile.email}
+              onChange={(event) => {
+                let email = event.target.value;
+                if (email.length > 2) {
+                  setPatientProfileError({ ...patientProfileError, email: "" });
+                } else {
+                  setPatientProfileError({
+                    ...patientProfileError,
+                    email: "Enter valid Email",
+                  });
+                }
+                setPatientProfile({ ...patientProfile, email: email });
+              }}
+            />
+            <label>Email</label>
+          </div>
+          <label className="form-text text-danger">
+            {patientProfileError.email}
+          </label>
+        </div>
+      </div>
 
+      {/* <div className="inputbox row mt-2 ">
         <div className="col-md-6">
           <div className="form-floating">
             <input
@@ -150,35 +198,7 @@ const PatientProfileComponent = () => {
             {patientProfileError.height}
           </label>
         </div>
-      </div>
 
-      <div className="inputbox row mt-2 ">
-        <div className="col-md-6">
-          <div className=" form-floating ">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Email"
-              value={patientProfile.email}
-              onChange={(event) => {
-                let email = event.target.value;
-                if (email.length > 2) {
-                  setPatientProfileError({ ...patientProfileError, email: "" });
-                } else {
-                  setPatientProfileError({
-                    ...patientProfileError,
-                    email: "Enter valid Email",
-                  });
-                }
-                setPatientProfile({ ...patientProfile, email: email });
-              }}
-            />
-            <label>Email</label>
-          </div>
-          <label className="form-text text-danger">
-            {patientProfileError.email}
-          </label>
-        </div>
         <div className="col-md-6">
           <div className="form-floating">
             <input
@@ -280,7 +300,7 @@ const PatientProfileComponent = () => {
         <button className="btn btn-primary text-center" type="button">
           Save Profile
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

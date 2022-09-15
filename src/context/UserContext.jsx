@@ -5,13 +5,16 @@ const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const [loggedInUser, setLoggedInUser] = useState({
+    fullName: "harshaSelvi",
+    email: "",
+    age: 0,
     userId: 0,
     userName: "",
-    role: "doctor",
-    // role: "patient",
+    role: "",
     isLoggedIn: false,
   });
-
+  const [doctorsContext, setDoctorsContext] = useState([]);
+  const [doctorContext, setDoctorContext] = useState({});
   const [specializationContext, setSpecializationContext] = useState([]);
 
   // useEffect(() => {
@@ -25,6 +28,10 @@ const UserProvider = ({ children }) => {
         setLoggedInUser,
         specializationContext,
         setSpecializationContext,
+        doctorsContext,
+        setDoctorsContext,
+        doctorContext,
+        setDoctorContext,
       }}
     >
       {children}

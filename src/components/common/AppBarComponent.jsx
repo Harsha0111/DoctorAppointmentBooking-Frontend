@@ -23,7 +23,7 @@ const AppBarComponent = () => {
             <Nav>
               {loggedInUser.isLoggedIn ? (
                 <>
-                  <div className="text-white">{loggedInUser.fullName}</div>
+                  <div className="text-white btn btn-outlined-primary">{loggedInUser.fullName}</div>
                   <div
                     className="text-white btn btn-outlined-primary"
                     onClick={(event) => {

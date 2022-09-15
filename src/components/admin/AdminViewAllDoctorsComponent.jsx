@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 import { Table } from "react-bootstrap";
 import api from "../../api/api";
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
 
 const AdminViewAllDoctorsComponent = () => {
   const navigate = useNavigate();
 
-  const [doctors, setDoctors] = useState([]);
+  const { doctorsContext, setDoctorsContext } = useContext(UserContext);
 
   useEffect(() => {
     api
@@ -16,7 +18,7 @@ const AdminViewAllDoctorsComponent = () => {
       .then((res) => {
         if (res.data.data) {
           console.log(res.data.data);
-          setDoctors(res.data.data);
+          setDoctorsContext(res.data.data);
         } else if (res.data.error) {
           console.log(res.data.error.message);
         } else {
@@ -34,7 +36,7 @@ const AdminViewAllDoctorsComponent = () => {
       .then((res) => {
         if (res.data.data) {
           console.log(res.data.data);
-          setDoctors(res.data.data);
+          setDoctorsContext(res.data.data);
         } else if (res.data.error) {
           console.log(res.data.error.message);
         } else {
@@ -52,7 +54,7 @@ const AdminViewAllDoctorsComponent = () => {
       .then((res) => {
         if (res.data.data) {
           console.log(res.data.data);
-          setDoctors(res.data.data);
+          setDoctorsContext(res.data.data);
         } else if (res.data.error) {
           console.log(res.data.error.message);
         } else {
@@ -78,8 +80,8 @@ const AdminViewAllDoctorsComponent = () => {
           </tr>
         </thead>
         <tbody>
-          {console.log(doctors)}
-          {doctors.map((doctor) => {
+          {console.log(doctorsContext)}
+          {doctorsContext.map((doctor) => {
             return (
               <tr key={doctor.id}>
                 <td>{doctor.fullName}</td>
@@ -87,12 +89,12 @@ const AdminViewAllDoctorsComponent = () => {
                 <td>{doctor.age}</td>
                 <td>{doctor.experience}</td>
                 <td>
-                  <span
+                  {/* <span
                     className="btn btn-primary btn-sm me-2"
                     onClick={(e) => editApi(e, doctor.id)}
                   >
                     Edit
-                  </span>
+                  </span> */}
                   <span
                     className="btn btn-danger btn-sm me-2"
                     onClick={(e) => deleteApi(e, doctor.id)}
